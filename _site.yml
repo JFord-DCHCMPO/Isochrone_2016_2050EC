@@ -2,7 +2,7 @@ name: "Isochrone Comparison"
 navbar:
   left:
     - text: "Home"
-      href: Rings.html
+      href: index.html
 
       
 output_dir: "docs"

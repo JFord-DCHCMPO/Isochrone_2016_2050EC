@@ -1,0 +1,141 @@
+---
+title: "Rings"
+author: "Jacob Ford DCHC MPO"
+date: "4/16/2021"
+output: html_document
+---
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results = 'hide'}
+library(sf)
+library(leaflet)
+library(dplyr)
+
+
+
+durham_2016_rings <- st_read("C:/Users/JacobFo/OneDrive - City of Durham/Rings/Durham Shape Rings.shp")
+durham_2050_rings <- st_read("C:/Users/JacobFo/OneDrive - City of Durham/Rings/Durham 2050 Rings.shp")
+
+ch_2016_rings <- st_read("C:/Users/JacobFo/OneDrive - City of Durham/Rings/Chapel Hill 2016 Rings.shp")
+ch_2050_rings <- st_read("C:/Users/JacobFo/OneDrive - City of Durham/Rings/Chapel Hill 2050 Rings.shp")
+
+rtp_2016_rings <- st_read("C:/Users/JacobFo/OneDrive - City of Durham/Rings/RTP 2016 Rings.shp")
+rtp_2050_rings <- st_read("C:/Users/JacobFo/OneDrive - City of Durham/Rings/RTP 2050 Rings.shp")
+
+r_2016_rings <- st_read("C:/Users/JacobFo/OneDrive - City of Durham/Rings/Raleigh 2016 Rings.shp")
+r_2050_rings <- st_read("C:/Users/JacobFo/OneDrive - City of Durham/Rings/Raleigh Rings 2050.shp")
+
+```
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results = 'hide'}
+summary(durham_2016_rings)
+
+```
+
+
+Durham 2016 Isochrone
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+colors <-c("darkred",NA)
+#colors <- c("206a5d", "8fd9a8", "D5ECC2", "eeebdd")
+pal <- colorNumeric(palette=colors, domain=0:75)
+
+leaflet() %>%
+  addProviderTiles(providers$CartoDB.Positron)%>%
+  addPolygons(data=durham_2016_rings,
+              fillColor=~pal(TO),
+              weight=2,
+              color="grey",
+              fillOpacity=0.6)
+```
+
+
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+colors <-c("darkred",NA)
+#colors <- c("206a5d", "8fd9a8", "D5ECC2", "eeebdd")
+pal <- colorNumeric(palette=colors, domain=0:75)
+
+leaflet() %>%
+  addProviderTiles("Stamen.TonerHybrid") %>%
+   addPolygons(data=durham_2016_rings,
+              fillColor=~pal(TO),
+              weight=2,
+              color="grey",
+              fillOpacity=0.6)
+```
+
+
+**All Region's Isochrones**
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+colors <-c("darkred",NA)
+#colors <- c("206a5d", "8fd9a8", "D5ECC2", "eeebdd")
+pal <- colorNumeric(palette=colors, domain=0:75)
+
+leaflet() %>%
+  addProviderTiles("Stamen.TonerHybrid") %>%
+   addPolygons(data=durham_2016_rings,
+              fillColor=~pal(TO),
+              group="Durham 2016", 
+              weight=2,
+              color="grey",
+              fillOpacity=0.6) %>%
+     addPolygons(data=durham_2050_rings,
+              fillColor=~pal(TO),
+              group="Durham 2050", 
+              weight=2,
+              color="grey",
+              fillOpacity=0.6) %>%
+     addPolygons(data=rtp_2016_rings,
+              fillColor=~pal(TO),
+              group="RTP 2016",
+              weight=2,
+              color="grey",
+              fillOpacity=0.6) %>%
+     addPolygons(data=rtp_2050_rings,
+              fillColor=~pal(TO),
+              group="RTP 2050",
+              weight=2,
+              color="grey",
+              fillOpacity=0.6) %>%
+     addPolygons(data=r_2016_rings,
+              fillColor=~pal(TO),
+              group="Raleigh 2016",
+              weight=2,
+              color="grey",
+              fillOpacity=0.6) %>%
+     addPolygons(data=r_2050_rings,
+              fillColor=~pal(TO),
+              group="Raleigh 2050",
+              weight=2,
+              color="grey",
+              fillOpacity=0.6) %>%
+     addPolygons(data=ch_2016_rings,
+              fillColor=~pal(TO),
+              group="Chapel Hill 2016",
+              weight=2,
+              color="grey",
+              fillOpacity=0.6) %>%
+     addPolygons(data=ch_2050_rings,
+              fillColor=~pal(TO),
+              group="Chapel Hill 2050",
+              weight=2,
+              color="grey",
+              fillOpacity=0.6) %>%
+
+  addLayersControl(
+    overlayGroups=c("Durham 2016", "Durham 2050", "RTP 2016", "RTP 2050", "Raleigh 2016", "Raleigh 2050", "Chapel Hill 2016", "Chapel Hill 2050"),
+    options=layersControlOptions(collapsed=FALSE)
+  ) %>%
+  hideGroup("Durham 2050") %>% hideGroup("RTP 2016") %>% hideGroup("RTP 2050") %>% hideGroup("Raleigh 2016") %>% hideGroup("Raleigh 2050") %>%
+  hideGroup("Chapel Hill 2016") %>% hideGroup("Chapel Hill 2050")
+
+```
+
+
