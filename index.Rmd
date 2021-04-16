@@ -36,7 +36,7 @@ summary(durham_2016_rings)
 ```
 
 
-Durham 2016 Isochrone
+**Durham 2016 Isochrone - Backgroun Option 1**
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 colors <-c("darkred",NA)
@@ -52,7 +52,7 @@ leaflet() %>%
               fillOpacity=0.6)
 ```
 
-
+**Durham 2016 Isochrone - Backgroun Option 2**
 
 
 
@@ -71,6 +71,48 @@ leaflet() %>%
 ```
 
 
+**Durham 2016 Isochrone - Backgroun Option 3**
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+colors <-c("darkred",NA)
+#colors <- c("206a5d", "8fd9a8", "D5ECC2", "eeebdd")
+pal <- colorNumeric(palette=colors, domain=0:75)
+
+leaflet() %>%
+  addProviderTiles("OpenStreetMap") %>%
+   addPolygons(data=durham_2016_rings,
+              fillColor=~pal(TO),
+              weight=2,
+              color="grey",
+              fillOpacity=0.6)
+```
+
+
+
+**Durham 2016 Isochrone - Backgroun Option 4**
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+colors <-c("darkred",NA)
+#colors <- c("206a5d", "8fd9a8", "D5ECC2", "eeebdd")
+pal <- colorNumeric(palette=colors, domain=0:75)
+
+leaflet() %>%
+  addProviderTiles("Esri.WorldStreetMap") %>%
+   addPolygons(data=durham_2016_rings,
+              fillColor=~pal(TO),
+              weight=2,
+              color="grey",
+              fillOpacity=0.6)
+```
+
+
+
+
+
 **All Region's Isochrones**
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
@@ -79,7 +121,7 @@ colors <-c("darkred",NA)
 pal <- colorNumeric(palette=colors, domain=0:75)
 
 leaflet() %>%
-  addProviderTiles("Stamen.TonerHybrid") %>%
+  addProviderTiles("OpenStreetMap") %>%
    addPolygons(data=durham_2016_rings,
               fillColor=~pal(TO),
               group="Durham 2016", 
